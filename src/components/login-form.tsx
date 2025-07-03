@@ -5,10 +5,16 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { NavLink } from "react-router"
 
+type LoginFormProp = {
+  handleformSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  className?: string
+} & React.ComponentProps<"div">
+
 export function LoginForm({
+  handleformSubmit,
   className,
   ...props
-}: React.ComponentProps<"div">) {
+}: LoginFormProp) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
@@ -20,7 +26,7 @@ export function LoginForm({
               className="inset-0 aspect-square h-70 dark:brightness-[0.2] dark:grayscale"
             />
           </div>
-          <form className="p-6 md:p-8">
+          <form className="p-6 md:p-8" onSubmit={handleformSubmit}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome</h1>
@@ -32,6 +38,7 @@ export function LoginForm({
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="m@example.com"
                   required
@@ -47,7 +54,7 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" name="password" type="password" required />
               </div>
               <Button type="submit" className="w-full">
                 Login

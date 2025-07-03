@@ -1,56 +1,21 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { NavLink, useNavigate } from "react-router"
-import axios from "axios"
+import { NavLink } from "react-router"
+
+type SignUpFormProps = {
+  handleformSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  className?: string
+} & React.ComponentProps<"div">
 
 export function SignUpForm({
+  handleformSubmit,
   className,
   ...props
-}: React.ComponentProps<"div">) {
-
-  const navigate = useNavigate();
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
-
-  useEffect(() => {
-    if (registrationSuccess) {
-      navigate("/login");
-    }
-  }, [registrationSuccess, navigate]);
-
-  const handleformSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    // Handle form submission logic here
-    // For example, you can send the form data to an API or perform validation
-    const formData = new FormData(e.currentTarget)
-    const name = formData.get("name")
-    const contact = formData.get("contact")
-    const email = formData.get("email")
-    const password = formData.get("password")
-    console.log("Form submitted with data:", name, contact, email, password)
-
-    // You can add your API call here to register the user
-    // For example, using fetch or axios to send the data to your backend
-
-    axios.post(`${"http://localhost:3000"}/api/users`, {
-      name,
-      contact,
-      email,
-      password
-    })
-      .then(response => {
-        console.log("User registered successfully:", response.data)
-        // Set registration success to true to trigger navigation
-        setRegistrationSuccess(true);
-      })
-      .catch(error => {
-        console.error("Error registering user:", error)
-        // Handle error, show error message to user
-      })
-  }
+}: SignUpFormProps) {
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
