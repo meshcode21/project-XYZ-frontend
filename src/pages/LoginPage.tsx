@@ -18,7 +18,7 @@ function LoginPage() {
 
     console.log("Form submitted with data:", email, password)
 
-    axios.post(`${"http://localhost:3000"}/api/auth/login`, { email, password })
+    axios.post(`/api/auth/login`, { email, password })
       .then(response => {
         console.log("User registered successfully:", response.data, response.status)
         toast.success("Login successful! Have a great Day.");

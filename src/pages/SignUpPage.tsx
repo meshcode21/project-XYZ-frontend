@@ -10,19 +10,14 @@ function SignUpPage() {
 
   const handleformSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Handle form submission logic here
-    // For example, you can send the form data to an API or perform validation
+
     const formData = new FormData(e.currentTarget)
     const name = formData.get("name")
     const contact = formData.get("contact")
     const email = formData.get("email")
     const password = formData.get("password")
-    // console.log("Form submitted with data:", name, contact, email, password)
 
-    // You can add your API call here to register the user
-    // For example, using fetch or axios to send the data to your backend
-
-    axios.post(`${"http://localhost:3000"}/api/auth/signup`, {
+    axios.post(`/api/auth/signup`, {
       name, contact, email, password
     })
       .then(response => {
